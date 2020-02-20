@@ -4,8 +4,6 @@ import firebaseConfig from '../../firebase.conf'
 
 export default ({ Vue }) => {
   // Initialize Firebase from settings
-  if (!Firebase.apps.length) {
-    Firebase.initializeApp(firebaseConfig)
-  }
+  Firebase.initializeApp(firebaseConfig)
   Vue.prototype.$firebase = Firebase
 }

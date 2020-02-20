@@ -24,7 +24,7 @@
     >
       <q-list>
         <q-item-label header class="text-grey-8">Goban</q-item-label>
-        <q-item v-for = "g in gobans" v-bind:key= "g">
+        <q-item v-for = "g in Object.keys(gobans)" v-bind:key= "g">
           {{ g }}
         </q-item>
       </q-list>

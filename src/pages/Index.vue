@@ -1,16 +1,13 @@
 <template>
   <q-page class="flex flex-center">
-    <ul>
-        <li>
-            Test
-        </li>
-        <li>
-            Test
-        </li>
-        <li>
-            Test
-        </li>
-    </ul>
+
+    <div class="q-pa-md">
+      <div class="row">
+        <div class="col-4 col-md-6" v-for = "g in Object.keys(gobans)" v-bind:key= "g">
+          {{ g }}
+        </div>
+      </div>
+    </div>
   </q-page>
 </template>
 

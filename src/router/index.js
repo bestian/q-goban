@@ -3,6 +3,10 @@ import VueRouter from 'vue-router'
 
 import routes from './routes'
 
+import { rtdbPlugin } from 'vuefire'
+
+Vue.use(rtdbPlugin)
+
 Vue.use(VueRouter)
 
 /*

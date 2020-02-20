@@ -16,6 +16,7 @@
 
 <script>
 export default {
-  name: 'PageIndex'
+  name: 'PageIndex',
+  props: ['gobans']
 }
 </script>

@@ -11,7 +11,9 @@
           aria-label="Menu"
         />
         <q-toolbar-title>
-          零時黑板
+          <router-link to="/">
+            零時黑板
+          </router-link>
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
@@ -31,7 +33,7 @@
     </q-drawer>
 
     <q-page-container>
-      <router-view :gobans="gobans" />
+      <router-view :gobans="gobans" @create='create'/>
     </q-page-container>
   </q-layout>
 </template>
@@ -59,3 +61,11 @@ export default {
   }
 }
 </script>
+
+<style type="text/css">
+
+a, router-link {
+  text-decoration: none;
+}
+
+</style>

@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import VueResource from 'vue-resource'
 
 import routes from './routes'
 
 import { rtdbPlugin } from 'vuefire'
 
+Vue.use(VueResource)
 Vue.use(rtdbPlugin)
 
 Vue.use(VueRouter)

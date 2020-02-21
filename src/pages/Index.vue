@@ -30,6 +30,9 @@ export default {
   methods: {
     create: function (k) {
       this.$emit('create', k)
+    },
+    reload: function () {
+      this.$emit('reload')
     }
   }
 }

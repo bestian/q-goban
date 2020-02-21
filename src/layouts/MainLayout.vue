@@ -31,8 +31,8 @@
           </router-link>
         </q-item>
         <q-item-label header class="text-grey-8">Links</q-item-label>
-        <q-item v-for="d in data" v-bind:key="d">
-          {{ d.name }}
+        <q-item v-for="(d, index) in data" v-bind:key="d">
+          <router-link :to="'/see/' + $route.params.id + '/' + $route.params.lev + '/' + index" >{{ d.name }}</router-link>
         </q-item>
       </q-list>
     </q-drawer>

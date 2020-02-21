@@ -32,7 +32,11 @@
         </q-item>
         <q-item-label header class="text-grey-8">Links</q-item-label>
         <q-item v-for="(d, index) in data" v-bind:key="d">
-          <router-link :to="'/see/' + $route.params.id + '/' + $route.params.lev + '/' + index" >{{ d.name }}</router-link>
+          <router-link :to="'/see/' + $route.params.id + '/' + $route.params.lev + '/' + index" >
+
+            <img :src="'https://www.google.com/s2/favicons?domain=' + d.url"/>
+            {{ d.name }}
+          </router-link>
         </q-item>
       </q-list>
     </q-drawer>
@@ -129,8 +133,12 @@ export default {
 
 <style type="text/css">
 
-a, router-link {
-  text-decoration: none;
-}
+  a, router-link {
+    text-decoration: none;
+  }
+
+  .floating.right {
+    float: right;
+  }
 
 </style>

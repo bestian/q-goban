@@ -25,14 +25,20 @@
       content-class="bg-grey-1"
     >
       <q-list>
+        <q-item>
+          <router-link :to="'/'">
+            <q-icon name = "home" />
+          </router-link>
+        </q-item>
         <q-item-label header class="text-grey-8">Links</q-item-label>
-        <q-item> TEST
+        <q-item v-for="d in data" v-bind:key="d">
+          {{ d.name }}
         </q-item>
       </q-list>
     </q-drawer>
 
     <q-page-container>
-      <router-view :gobans="gobans" :data="data" @create='create' @reload = "roload"/>
+      <router-view :gobans="gobans" :data="data" @create='create' @reload = "reload"/>
     </q-page-container>
   </q-layout>
 </template>

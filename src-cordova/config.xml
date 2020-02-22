@@ -14,10 +14,10 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <access origin="*" />
     <access origin="file://*" />
     <access origin="http://*" />
     <allow-navigation href="http://*" />
+    <allow-navigation href="*" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="res/android/ldpi.png" />

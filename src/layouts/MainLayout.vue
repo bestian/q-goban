@@ -30,6 +30,9 @@
             <q-icon name = "home" />
           </router-link>
         </q-item>
+        <q-item>
+          <router-link v-for='j in [0,1,2,3]' :key='j' :to="'/see/' + $route.params.id + '/' + j + '/0'"> &nbsp;&nbsp;{{ j }}&nbsp;&nbsp; </router-link>
+        </q-item>
         <q-item-label header class="text-grey-8">Links</q-item-label>
         <q-item v-for="(d, index) in data" v-bind:key="d">
           <router-link :to="'/see/' + $route.params.id + '/' + $route.params.lev + '/' + index" >

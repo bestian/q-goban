@@ -33,13 +33,17 @@
         <q-item>
           <router-link v-for='j in [0,1,2,3]' :key='j' :to="'/see/' + $route.params.id + '/' + j + '/0'"> &nbsp;&nbsp;{{ j }}&nbsp;&nbsp; </router-link>
         </q-item>
-        <q-item-label header class="text-grey-8">Links</q-item-label>
         <q-item v-for="(d, index) in data" v-bind:key="d">
-          <router-link :to="'/see/' + $route.params.id + '/' + $route.params.lev + '/' + index" >
+          <router-link  v-if="d.type == 'link'" v-show='!d.parentIndex || data[d.parentIndex].open' :to="'/see/' + $route.params.id + '/' + $route.params.lev + '/' + index" >
 
             <img :src="'https://www.google.com/s2/favicons?domain=' + d.url"/>
             {{ d.name }}
           </router-link>
+          <div v-if="d.type == 'folder'" v-show='!d.parentIndex || data[d.parentIndex].open'>
+            <a @click='d.open = !d.open'>
+              {{ d.name }}
+            </a>
+          </div>
         </q-item>
       </q-list>
     </q-drawer>
@@ -138,6 +142,7 @@ export default {
 
   a, router-link {
     text-decoration: none;
+    cursor: pointer;
   }
 
   .floating.right {

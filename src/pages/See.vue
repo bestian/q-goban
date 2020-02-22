@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex flex-center">
-    <iframe width="100%" height="420" name='iframe' :src='getSrc()' />
+    <iframe width="100%" height="600" name='iframe' :src='getSrc()' />
   </q-page>
 </template>
 

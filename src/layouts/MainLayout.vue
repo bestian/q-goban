@@ -31,12 +31,18 @@
           </router-link>
         </q-item>
         <q-item>
-          <router-link v-for='j in [0,1,2,3]' :key='j' :to="'/see/' + $route.params.id + '/' + j + '/0'"> &nbsp;&nbsp;{{ j }}&nbsp;&nbsp; </router-link>
+          <a v-for='j in [0,1,2,3]' :key='j' @click="$router.push('/see/' + $route.params.id + '/' + j + '/0'); reload()"> &nbsp;&nbsp;{{ j }}&nbsp;&nbsp; </a>
         </q-item>
-        <q-item v-for="(d, index) in data" v-bind:key="d">
+        <q-item>
+          <router-link :to="'/see/' + $route.params.id + '/' + $route.params.lev + '/new'">
+              <img :src="'https://www.google.com/s2/favicons?domain=https://ethercalc.org/'" width="16" height="16"/>
+              | {{name || $route.params.id + $route.params.lev}}
+          </router-link>
+        </q-item>
+        <q-item v-for="(d, index) in data" v-bind:key="d.name">
           <router-link  v-if="d.type == 'link'" v-show='!d.parentIndex || data[d.parentIndex].open' :to="'/see/' + $route.params.id + '/' + $route.params.lev + '/' + index" >
 
-            <img :src="'https://www.google.com/s2/favicons?domain=' + d.url"/>
+            <img :src="'https://www.google.com/s2/favicons?domain=' + d.url" width="16" height="16"/>
             {{ d.name }}
           </router-link>
           <div v-if="d.type == 'folder'" v-show='!d.parentIndex || data[d.parentIndex].open'>
@@ -65,7 +71,8 @@ export default {
     return {
       leftDrawerOpen: false,
       gobans: undefined,
-      data: []
+      data: [],
+      name: ''
     }
   },
   methods: {

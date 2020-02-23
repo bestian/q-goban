@@ -6,7 +6,7 @@
         <q-btn color="primary" :label="'創建' + myKey" @click='create(myKey)' v-if='myKey'/>
       </div>
       <div class="row">
-        <div class="col-4 col-md-6" v-for = "g in Object.keys(gobans)" v-bind:key= "g" v-show='!myKey || g.match(new RegExp(myKey))'>
+        <div class="col-6 col-md-6 col-sm-6" v-for = "g in Object.keys(gobans)" v-bind:key= "g" v-show='!myKey || g.match(new RegExp(myKey))'>
 
           <router-link :to="'see/' + g + '/0/0'">
             <q-icon name = "font_download" />

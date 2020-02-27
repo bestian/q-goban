@@ -6,6 +6,10 @@ import routes from './routes'
 
 import { rtdbPlugin } from 'vuefire'
 
+import autofocus from 'vue-autofocus-directive'
+
+Vue.directive('autofocus', autofocus)
+
 Vue.use(VueResource)
 Vue.use(rtdbPlugin)
 

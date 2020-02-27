@@ -27,7 +27,10 @@
       <q-list>
         <q-item>
           <router-link :to="'/'">
-            <q-icon name = "home" />
+            <q-icon name = "home" size="lg"/>
+          </router-link>
+          <router-link :to="'/star'">
+            <q-icon name = "star" size="lg"/>
           </router-link>
         </q-item>
         <q-item v-if = "$route.params.id">

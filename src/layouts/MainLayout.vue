@@ -30,10 +30,13 @@
             <q-icon name = "home" />
           </router-link>
         </q-item>
-        <q-item>
+        <q-item v-if = "$route.params.id">
           <a v-for='j in [0,1,2,3]' :key='j' @click="$router.push('/see/' + $route.params.id + '/' + j + '/0'); reload()"> &nbsp;&nbsp;{{ j }}&nbsp;&nbsp; </a>
         </q-item>
-        <q-item>
+        <q-item v-else>
+          請選擇一個黑板
+        </q-item>
+        <q-item v-if = "$route.params.id">
           <router-link :to="'/see/' + $route.params.id + '/' + $route.params.lev + '/new'">
               <img :src="'https://www.google.com/s2/favicons?domain=https://ethercalc.org/'" width="16" height="16"/>
               | {{name || $route.params.id + $route.params.lev}}

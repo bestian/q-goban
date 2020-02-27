@@ -2,7 +2,7 @@
   <q-page class="flex flex-center">
     <div class="q-pa-md">
       <div class="row">
-        <h4>收集並分享網址</h4>
+        <h1>收集並分享網址</h1>
       </div>
       <div class="row">
         <input v-autofocus="dynamicvalue" type='search' name='' v-model='myKey' placeholder='搜詢黑板' autofocus='true'/>

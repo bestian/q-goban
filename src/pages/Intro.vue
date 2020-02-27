@@ -1,28 +1,7 @@
 <template>
   <q-page class="flex flex-center">
     <div class="q-pa-md">
-      <div class="row">
-        <h4>收集並分享網址</h4>
-      </div>
-      <div class="row">
-        <q-btn color="secondary" @click="$router.push('/intro')">瞭解更多 > </q-btn>
-      </div>
-      <br/>
-      <div class="row">
-        <input v-autofocus="" type='search' name='' v-model='myKey' placeholder='搜詢黑板' autofocus='true'/>
-        <q-btn color="primary" :label="'創建' + myKey" @click='create(myKey)' v-if='myKey'/>
-      </div>
-      <div class="row">
-        <div class="col-6 col-md-6 col-sm-6" v-for = "g in Object.keys(gobans)" v-bind:key= "g" v-show='!myKey || g.match(new RegExp(myKey))'>
-          <router-link :to="'see/' + g + '/0/0'">
-            <q-icon name = "font_download" />
-            {{ g }}
-          </router-link>
-          <a @click="handleRate(g, 5)">
-            <q-icon name = "star" size="sm" :class="stars[g] ? 'yellow' : 'gray'" />
-          </a>
-        </div>
-      </div>
+      <q-vedio src=""/>
     </div>
   </q-page>
 </template>

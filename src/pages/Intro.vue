@@ -1,8 +1,6 @@
 <template>
   <q-page class="flex flex-center">
-    <div class="q-pa-md">
-      <q-vedio src=""/>
-    </div>
+    <q-video class="v" src="https://www.youtube.com/embed/mWbvcHlGCOg"/>
   </q-page>
 </template>
 
@@ -52,5 +50,9 @@ export default {
 }
 .gray {
   color: gray;
+}
+.v {
+  width: 100% !important;
+  height: 500px !important;
 }
 </style>

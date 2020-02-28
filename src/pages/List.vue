@@ -1,20 +1,23 @@
 <template>
   <q-page class="flex flex-center">
     <div class="q-pa-md">
-      <q-list bordered separator>
-        <q-item clickable v-ripple>
-          <router-link to="/create"><q-item-label>創建</q-item-label></router-link>
-        </q-item>
-        <q-item clickable v-ripple>
-          <router-link to="/list"><q-item-label>搜詢</q-item-label></router-link>
-        </q-item>
-        <q-item clickable v-ripple>
-          <router-link to="/star"><q-item-label>珍藏</q-item-label></router-link>
-        </q-item>
-        <q-item clickable v-ripple>
-          <router-link to="/intro"><q-item-label>導覽</q-item-label></router-link>
-        </q-item>
-      </q-list>
+      <div class="row">
+        <h4>搜詢黑板</h4>
+      </div>
+      <div class="row">
+        <input v-autofocus="" type='search' name='' v-model='myKey' placeholder='搜詢黑板' autofocus='true'/>
+      </div>
+      <div class="row">
+        <div class="col-6 col-md-6 col-sm-6" v-for = "g in Object.keys(gobans)" v-bind:key= "g" v-show='!myKey || g.match(new RegExp(myKey))'>
+          <router-link :to="'see/' + g + '/0/0'">
+            <q-icon name = "font_download" />
+            {{ g }}
+          </router-link>
+          <a @click="handleRate(g, 5)">
+            <q-icon name = "star" size="sm" :class="stars[g] ? 'yellow' : 'gray'" />
+          </a>
+        </div>
+      </div>
     </div>
   </q-page>
 </template>
@@ -66,8 +69,4 @@ export default {
 .gray {
   color: gray;
 }
-.q-item {
-  font-size: 2em !important;
-}
-
 </style>

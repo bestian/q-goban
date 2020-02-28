@@ -1,20 +1,14 @@
 <template>
   <q-page class="flex flex-center">
     <div class="q-pa-md">
-      <q-list bordered separator>
-        <q-item clickable v-ripple>
-          <router-link to="/create"><q-item-label>創建</q-item-label></router-link>
-        </q-item>
-        <q-item clickable v-ripple>
-          <router-link to="/list"><q-item-label>搜詢</q-item-label></router-link>
-        </q-item>
-        <q-item clickable v-ripple>
-          <router-link to="/star"><q-item-label>珍藏</q-item-label></router-link>
-        </q-item>
-        <q-item clickable v-ripple>
-          <router-link to="/intro"><q-item-label>導覽</q-item-label></router-link>
-        </q-item>
-      </q-list>
+      <div class="row">
+        <h4>創建黑板</h4>
+      </div>
+      <br/>
+      <div class="row">
+        <input v-autofocus="" type='search' name='' v-model='myKey' placeholder='輸入黑板的名字' autofocus='true'/>
+        <q-btn color="primary" :label="'創建' + myKey" @click='create(myKey)' v-if='myKey'/>
+      </div>
     </div>
   </q-page>
 </template>
@@ -66,8 +60,4 @@ export default {
 .gray {
   color: gray;
 }
-.q-item {
-  font-size: 2em !important;
-}
-
 </style>

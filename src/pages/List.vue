@@ -53,7 +53,9 @@ export default {
     },
     loadStars: function () {
       console.log(this.$q.localStorage.getItem('stars'))
-      this.stars = this.$q.localStorage.getItem('stars') || this.stars
+      if (this.$q.localStorage.getItem('stars').goban_intro) {
+        this.stars = this.$q.localStorage.getItem('stars') || this.stars
+      }
     }
   },
   mounted () {

@@ -1,8 +1,8 @@
 {
-  "name": "goban",
-  "version": "1.0.0",
+  "name": "零時黑板",
+  "version": "1.0.10",
   "description": "A Quasar Framework app",
-  "productName": "Goban",
+  "productName": "零時黑板",
   "cordovaId": "tw.goban.app",
   "capacitorId": "",
   "author": "Bestian Tang <bestian@gmail.com>",

@@ -19,6 +19,7 @@ export default {
   methods: {
     create: function (k) {
       db.ref('gobans/' + k).set(k)
+      this.$router.push('/see/' + k + '/0/new')
     },
     getSrc: function () {
       if (this.$route.params.index === 'new') {

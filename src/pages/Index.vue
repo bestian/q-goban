@@ -3,16 +3,20 @@
     <div class="q-pa-md">
       <q-list bordered separator>
         <q-item clickable v-ripple>
-          <router-link to="/create"><q-item-label>創建</q-item-label></router-link>
+          <router-link to="/create"><q-item-label>
+            <q-icon name="edit"/>創建</q-item-label></router-link>
         </q-item>
         <q-item clickable v-ripple>
-          <router-link to="/list"><q-item-label>搜詢</q-item-label></router-link>
+          <router-link to="/list"><q-item-label>
+            <q-icon name="search"/>搜詢</q-item-label></router-link>
         </q-item>
         <q-item clickable v-ripple>
-          <router-link to="/star"><q-item-label>珍藏</q-item-label></router-link>
+          <router-link to="/star"><q-item-label>
+            <q-icon name="star"/>珍藏</q-item-label></router-link>
         </q-item>
         <q-item clickable v-ripple>
-          <router-link to="/intro"><q-item-label>導覽</q-item-label></router-link>
+          <router-link to="/intro"><q-item-label>
+            <q-icon name="info"/>導覽</q-item-label></router-link>
         </q-item>
       </q-list>
     </div>

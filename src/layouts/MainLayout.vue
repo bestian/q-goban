@@ -14,11 +14,13 @@
           <router-link to="/" class="white">
             <q-icon name="home"/>
           </router-link>
-          <span v-if="$route.params.id"><router-link v-for="r in gobans.filter(function(o){ return o.id == $route.params.id })[0].related" v-bind:key="r" :to ="'/see/' + r + '/0/0'" v-show="r !== $route.params.id" class="white">
+          <span v-if="$route.params.id && gobans.filter(function(o){ return o.id == $route.params.id })[0]"><router-link v-for="r in gobans.filter(function(o){ return o.id == $route.params.id })[0].related" v-bind:key="r" :to ="'/see/' + r + '/0/0'" v-show="r !== $route.params.id" class="white">
               {{ r }}
             </router-link>
           </span>
         </q-toolbar-title>
+        <q-space />
+        <a v-if = "getSrc()" :href="getSrc()" target="_blank">前往{{getSrc()}}</a>
       </q-toolbar>
     </q-header>
 
@@ -55,7 +57,7 @@
               | {{name || $route.params.id + ($route.params.lev || '')}}
           </router-link>
         </q-item>
-        <q-item v-for="(d, index) in data" v-bind:key="d.name">
+        <q-item v-for="(d, index) in data" v-bind:key="d.name + index">
           <router-link  v-if="d.type == 'link'" v-show='!d.parentIndex || data[d.parentIndex].open' :to="'/see/' + $route.params.id + '/' + $route.params.lev + '/' + index" >
 
             <img :src="'https://www.google.com/s2/favicons?domain=' + d.url" width="16" height="16"/>
@@ -71,7 +73,7 @@
     </q-drawer>
 
     <q-page-container>
-      <router-view :gobans="gobans" :data="data" @create='create' @update="update" @reload = "reload"/>
+      <router-view :gobans="gobans" :data="data" @create="create" @update="update" @reload = "reload"/>
     </q-page-container>
   </q-layout>
 </template>

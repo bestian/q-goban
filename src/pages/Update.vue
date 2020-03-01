@@ -29,7 +29,7 @@
         </div>
       </div>
       <div class="row">
-        <q-btn color="primary" :label="'創建' + myKey" @click='create(myKey, {t: myText, related:myRelated, tags: myTags})' v-if='myKey'/>
+        <q-btn color="primary" :label="'更新' + myKey" @click='create(myKey, {t: myText, related:myRelated, tags: myTags})' v-if='myKey'/>
       </div>
     </div>
   </q-page>

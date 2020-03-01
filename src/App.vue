@@ -21,7 +21,7 @@ export default {
     create: function (k, obj) {
       console.log(typeof obj)
       if (typeof obj !== 'object') { obj = {} }
-      if (!obj.id) { obj.id = k }
+      if (!obj.id !== k) { obj.id = k }
       if (!obj.name) { obj.name = k }
       obj.t = obj.t || k
       obj.text = obj.t || k
@@ -29,7 +29,7 @@ export default {
       obj.tags = obj.tags || [k]
       console.log(obj)
       db.ref('gobans/' + k).set(obj)
-    //  this.$router.push('/see/' + k + '/0/new')
+      this.$router.push('/see/' + k + '/0/new')
     },
     update: function (k, obj) {
       console.log(typeof obj)
@@ -41,7 +41,7 @@ export default {
       obj.tags = obj.tags || this.gobans[k].tages
       console.log(obj)
       db.ref('gobans/' + k).set(obj)
-    //  this.$router.push('/see/' + k + '/0/new')
+      this.$router.push('/see/' + k + '/0/new')
     },
     getSrc: function () {
       if (this.$route.params.index === 'new') {

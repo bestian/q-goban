@@ -45,7 +45,7 @@
         <q-item v-if = "$route.params.id">
           <router-link :to="'/see/' + $route.params.id + '/' + $route.params.lev + '/new'">
               <img :src="'https://www.google.com/s2/favicons?domain=https://ethercalc.org/'" width="16" height="16"/>
-              | {{name || $route.params.id + $route.params.lev}}
+              | {{name || $route.params.id + ($route.params.lev || '')}}
           </router-link>
         </q-item>
         <q-item v-for="(d, index) in data" v-bind:key="d.name">
@@ -96,7 +96,7 @@ export default {
       obj.tags = obj.tags || [k]
       console.log(obj)
       db.ref('gobans/' + k).set(obj)
-    //  this.$router.push('/see/' + k + '/0/new')
+      this.$router.push('/see/' + k + '/0/new')
     },
     update: function (k, obj) {
       console.log(typeof obj)
@@ -108,7 +108,7 @@ export default {
       obj.tags = obj.tags || this.gobans[k].tages
       console.log(obj)
       db.ref('gobans/' + k).set(obj)
-    //  this.$router.push('/see/' + k + '/0/new')
+      this.$router.push('/see/' + k + '/0/new')
     },
     getSrc: function () {
       if (this.$route.params.index === 'new') {

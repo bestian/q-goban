@@ -21,6 +21,16 @@
           <a @click="handleRate(g, 5)">
             <q-icon name = "star" size="sm" :class="stars[g] ? 'yellow' : 'gray'" />
           </a>
+          <br/>相關黑板:
+              <router-link :to="'/update/' + g.id">
+                <q-icon name="edit"/>
+              </router-link>
+          <ol>
+            <li v-for="r in g.related" v-show ="r != g.id" v-bind:key="r">
+              <router-link :to="'/see/' + r + '/0/0'" class="sub header"> {{ r }}
+              </router-link>
+            </li>
+          </ol>
         </div>
       </div>
     </div>

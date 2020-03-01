@@ -1,6 +1,7 @@
 <template>
   <q-page class="flex flex-center">
     <div class="q-pa-md">
+      <h4>收集分享網址</h4>
       <q-list bordered separator>
         <q-item clickable v-ripple>
           <router-link to="/create"><q-item-label>

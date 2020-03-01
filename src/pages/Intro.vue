@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex flex-center">
-    <q-video class="v" src="https://www.youtube.com/embed/mWbvcHlGCOg"/>
+    <q-video class="v" src="https://www.youtube.com/embed/0ni2Xn0tACk"/>
   </q-page>
 </template>
 

@@ -50,12 +50,12 @@ export default {
     }
   },
   methods: {
-    adRel: function (g) {
-      if (this.myRelated.indexOf(g) > -1) {
+    adRel: function (id) {
+      if (this.myRelated.indexOf(id) > -1) {
         this.myRelated = this.myRelated.filter(function (o) {
-          return o !== g
+          return o !== id
         })
-      } else { this.myRelated.push(g) }
+      } else { this.myRelated.push(id) }
     },
     create: function (k, obj) {
       this.$emit('create', k, obj)

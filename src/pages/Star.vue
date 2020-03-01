@@ -9,7 +9,7 @@
         <q-btn color="primary" :label="'創建' + myKey" @click='create(myKey)' v-if='myKey'/>
       </div>
       <div class="row">
-        <div class="col-12 col-lg-6 col-md-12 col-sm-12" v-for = "g in gobans" v-bind:key= "g.id" v-show='(!myKey || g.id.match(new RegExp(myKey))) && stars[g.id]'>
+        <div class="col-12 col-lg-6 col-md-12 col-sm-12 block" v-for = "g in gobans" v-bind:key= "g.id" v-show='(!myKey || g.id.match(new RegExp(myKey))) && stars[g.id]'>
           <router-link :to="'see/' + g + '/0/0'">
             <h4>{{ g.id }}</h4>
           </router-link>
@@ -84,7 +84,14 @@ export default {
   color: gray;
 }
 h4 {
+  font-size: 1.6em;
   margin: 0;
   display: inline;
 }
+
+.block {
+  border: 1px solid black;
+  padding: .5em;
+}
+
 </style>

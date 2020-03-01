@@ -2,13 +2,10 @@
   <q-page class="flex flex-center">
     <div class="q-pa-md">
       <div class="row">
-        <h4>搜詢黑板</h4>
-      </div>
-      <div class="row">
         <input v-autofocus="" type='search' name='' v-model='myKey' placeholder='搜詢黑板' autofocus='true'/>
       </div>
       <div class="row">
-        <div class="col-12 col-lg-6 col-md-12 col-sm-12" v-for = "g in gobans" v-bind:key= "g.id" v-show='!myKey || g.match(new RegExp(myKey))'>
+        <div class="col-12 col-lg-6 col-md-12 col-sm-12 block" v-for = "g in gobans" v-bind:key= "g.id" v-show='!myKey || g.match(new RegExp(myKey))'>
           <router-link :to="'see/' + g + '/0/0'">
             <h4>{{ g.id }}</h4>
           </router-link>
@@ -102,6 +99,12 @@ export default {
 }
 h4 {
   margin: 0;
+  font-size: 1.6em;
   display: inline;
 }
+.block {
+  border: 1px solid black;
+  padding: .5em;
+}
+
 </style>

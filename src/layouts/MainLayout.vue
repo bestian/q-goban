@@ -11,9 +11,13 @@
           aria-label="Menu"
         />
         <q-toolbar-title>
-          <router-link to="/">
-            零時黑板
+          <router-link to="/" class="white">
+            <q-icon name="home"/>
           </router-link>
+          <span v-if="$route.params.id"><router-link v-for="r in gobans.filter(function(o){ return o.id == $route.params.id })[0].related" v-bind:key="r" :to ="'/see/' + r + '/0/0'" v-show="r !== $route.params.id" class="white">
+              {{ r }}
+            </router-link>
+          </span>
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
@@ -26,7 +30,10 @@
     >
       <q-list>
         <q-item>
-          <router-link :to="'/create'">
+          <router-link :to="'/create'" v-if="!$route.params.id">
+            <q-icon name = "edit" size="lg"/>
+          </router-link>
+          <router-link v-else :to="'/update/' + $route.params.id" >
             <q-icon name = "edit" size="lg"/>
           </router-link>
           <router-link :to="'/list'">
@@ -181,6 +188,12 @@ export default {
   a, router-link {
     text-decoration: none;
     cursor: pointer;
+    margin: 0 .5em;
+    font-size: .6em;
+  }
+
+  a.white {
+    color: white !important;
   }
 
   .floating.right {

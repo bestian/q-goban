@@ -8,11 +8,16 @@
         <input v-autofocus="" type='search' name='' v-model='myKey' placeholder='搜詢黑板' autofocus='true'/>
       </div>
       <div class="row">
-        <div class="col-6 col-md-6 col-sm-6" v-for = "g in Object.keys(gobans)" v-bind:key= "g" v-show='!myKey || g.match(new RegExp(myKey))'>
+        <div class="col-6 col-md-6 col-sm-6" v-for = "g in gobans" v-bind:key= "g.id" v-show='!myKey || g.match(new RegExp(myKey))'>
           <router-link :to="'see/' + g + '/0/0'">
             <q-icon name = "font_download" />
-            {{ g }}
+            {{ g.id }}
           </router-link>
+          <span class="sub header" v-if="g.t && !u">-{{g.t}}</span>
+          <input v-else @keydown.enter="update(g, g)" v-model="g.t" />
+          <a @click="u = !u">
+            <q-icon name="edit"/>
+          </a>
           <a @click="handleRate(g, 5)">
             <q-icon name = "star" size="sm" :class="stars[g] ? 'yellow' : 'gray'" />
           </a>
@@ -30,12 +35,16 @@ export default {
   data () {
     return {
       myKey: '',
+      myText: '',
+      u: false,
       stars: { goban_intro: 5 }
     }
   },
   methods: {
-    create: function (k) {
-      this.$emit('create', k)
+    create: function (k, obj) {
+      this.$emit('create', k, obj)
+    },
+    update: function (k, obj) {
     },
     reload: function () {
       this.$emit('reload')
@@ -59,7 +68,15 @@ export default {
     }
   },
   mounted () {
+    function create (g, obj) {
+      this.create(g, obj)
+    }
     this.loadStars()
+    Object.keys(this.gobans).map(
+      function (g) {
+        create(g, g)
+      }
+    )
   }
 }
 </script>
@@ -69,6 +86,9 @@ export default {
   color: #dd0;
 }
 .gray {
+  color: gray;
+}
+.sub.header {
   color: gray;
 }
 </style>

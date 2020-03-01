@@ -26,8 +26,11 @@
     >
       <q-list>
         <q-item>
-          <router-link :to="'/'">
-            <q-icon name = "home" size="lg"/>
+          <router-link :to="'/create'">
+            <q-icon name = "edit" size="lg"/>
+          </router-link>
+          <router-link :to="'/list'">
+            <q-icon name = "search" size="lg"/>
           </router-link>
           <router-link :to="'/star'">
             <q-icon name = "star" size="lg"/>
@@ -61,7 +64,7 @@
     </q-drawer>
 
     <q-page-container>
-      <router-view :gobans="gobans" :data="data" @create='create' @reload = "reload"/>
+      <router-view :gobans="gobans" :data="data" @create='create' @update="update" @reload = "reload"/>
     </q-page-container>
   </q-layout>
 </template>
@@ -76,15 +79,36 @@ export default {
   data () {
     return {
       leftDrawerOpen: false,
-      gobans: undefined,
+      gobans: [],
       data: [],
       name: ''
     }
   },
   methods: {
-    create: function (k) {
-      db.ref('gobans/' + k).set(k)
-      this.$router.push('/see/' + k + '/0/new')
+    create: function (k, obj) {
+      console.log(typeof obj)
+      if (typeof obj !== 'object') { obj = {} }
+      if (!obj.id !== k) { obj.id = k }
+      if (!obj.name) { obj.name = k }
+      obj.t = obj.t || k
+      obj.text = obj.t || k
+      obj.related = obj.related || [k]
+      obj.tags = obj.tags || [k]
+      console.log(obj)
+      db.ref('gobans/' + k).set(obj)
+    //  this.$router.push('/see/' + k + '/0/new')
+    },
+    update: function (k, obj) {
+      console.log(typeof obj)
+      if (typeof obj !== 'object') { obj = {} }
+      obj.name = k
+      obj.t = obj.t || this.gobans[k].t
+      obj.text = obj.t || this.gobans[k].t
+      obj.related = obj.related || this.gobans[k].related
+      obj.tags = obj.tags || this.gobans[k].tages
+      console.log(obj)
+      db.ref('gobans/' + k).set(obj)
+    //  this.$router.push('/see/' + k + '/0/new')
     },
     getSrc: function () {
       if (this.$route.params.index === 'new') {
@@ -161,6 +185,10 @@ export default {
 
   .floating.right {
     float: right;
+  }
+
+  .sub.header {
+    color: grey;
   }
 
 </style>

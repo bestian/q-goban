@@ -1,6 +1,6 @@
 <template>
   <div id="q-app">
-    <router-view :gobans = "gobans" :data="data" @reload="reload" @create="create"/>
+    <router-view :gobans = "gobans" :data="data" @reload="reload" @create="create" @update="update"/>
   </div>
 </template>
 
@@ -13,13 +13,35 @@ export default {
   data () {
     return {
       gobans: undefined,
-      data: []
+      data: [],
+      name: ''
     }
   },
   methods: {
-    create: function (k) {
-      db.ref('gobans/' + k).set(k)
-      this.$router.push('/see/' + k + '/0/new')
+    create: function (k, obj) {
+      console.log(typeof obj)
+      if (typeof obj !== 'object') { obj = {} }
+      if (!obj.id) { obj.id = k }
+      if (!obj.name) { obj.name = k }
+      obj.t = obj.t || k
+      obj.text = obj.t || k
+      obj.related = obj.related || [k]
+      obj.tags = obj.tags || [k]
+      console.log(obj)
+      db.ref('gobans/' + k).set(obj)
+    //  this.$router.push('/see/' + k + '/0/new')
+    },
+    update: function (k, obj) {
+      console.log(typeof obj)
+      if (typeof obj !== 'object') { obj = {} }
+      obj.name = k
+      obj.t = obj.t || this.gobans[k].t
+      obj.text = obj.t || this.gobans[k].t
+      obj.related = obj.related || this.gobans[k].related
+      obj.tags = obj.tags || this.gobans[k].tages
+      console.log(obj)
+      db.ref('gobans/' + k).set(obj)
+    //  this.$router.push('/see/' + k + '/0/new')
     },
     getSrc: function () {
       if (this.$route.params.index === 'new') {

@@ -6,8 +6,30 @@
       </div>
       <br/>
       <div class="row">
-        <input v-autofocus="" type='search' name='' v-model='myKey' placeholder='輸入黑板的名字' autofocus='true'/>
-        <q-btn color="primary" :label="'創建' + myKey" @click='create(myKey)' v-if='myKey'/>
+        <input v-autofocus="" type='search' name='' v-model='myKey' placeholder='輸入黑板的id' autofocus='true'/>
+      </div>
+      <div class="row" v-show = "myKey">
+        <div class="col-6 col-md-6 col-sm-6" v-for = "g in gobans" v-bind:key= "g.id" v-show='g.id.match(new RegExp(myKey))'>
+          <a @click="myKey = g.id; myText=g.t; myRelated=g.related; mytags=g.tags">
+            <q-icon name = "font_download" />
+            {{ g.id }}
+          </a>
+        </div>
+      </div>
+      <div class="row">
+        <input type='text' name='' v-model='myText' placeholder='輸入黑板的簡介' autofocus='true'/>
+      </div>
+      <div class="row">
+        <div class="col-6 col-md-6 col-sm-6">相關黑板： {{ myRelated }}</div>
+        <div class="col-6 col-md-6 col-sm-6" v-for = "g in gobans" v-bind:key= "g.id">
+          <a @click="adRel(g.id)">
+            <input type ="checkbox" :checkd ="myRelated.indexOf(g.id) > -1" />
+            {{ g.id }}
+          </a>
+        </div>
+      </div>
+      <div class="row">
+        <q-btn color="primary" :label="'創建' + myKey" @click='create(myKey, {t: myText, related:myRelated, tags: myTags})' v-if='myKey'/>
       </div>
     </div>
   </q-page>
@@ -21,12 +43,22 @@ export default {
   data () {
     return {
       myKey: '',
+      myText: '',
+      myRelated: [],
+      myTags: [],
       stars: { goban_intro: 5 }
     }
   },
   methods: {
-    create: function (k) {
-      this.$emit('create', k)
+    adRel: function (g) {
+      if (this.myRelated.indexOf(g) > -1) {
+        this.myRelated = this.myRelated.filter(function (o) {
+          return o !== g
+        })
+      } else { this.myRelated.push(g) }
+    },
+    create: function (k, obj) {
+      this.$emit('create', k, obj)
     },
     reload: function () {
       this.$emit('reload')

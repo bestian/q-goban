@@ -9,7 +9,7 @@
           <router-link :to="'see/' + g.id + '/0/0'">
             <h4 :style="{color: g.hex || 'c9c9c9'}">{{ g.id }}</h4>
           </router-link>
-          <span class="sub header" :style="{color: g.hex || 'c9c9c9'}" v-if="g.t">-{{g.t}}</span>
+          <span class="sub header" :style="{color: g.hex || 'c9c9c9'}" v-if="g.t && !u">-{{g.t}}</span>
           <input v-else @keydown.enter="update(g, g)" v-model="g.t" />
           <a @click="u = !u">
             <q-icon name="edit"/>

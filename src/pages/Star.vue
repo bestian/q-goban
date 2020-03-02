@@ -94,4 +94,8 @@ h4 {
   padding: .5em;
 }
 
+li {
+  display: inline-block;
+}
+
 </style>

@@ -7,15 +7,15 @@
       <div class="row">
         <div class="col-12 col-lg-6 col-md-12 col-sm-12 block" v-for = "g in gobans" v-bind:key= "g.id" v-show='!myKey || g.match(new RegExp(myKey))'>
           <router-link :to="'see/' + g.id + '/0/0'">
-            <h4>{{ g.id }}</h4>
+            <h4 :style="{color: g.hex || 'c9c9c9'}">{{ g.id }}</h4>
           </router-link>
-          <span class="sub header" v-if="g.t">-{{g.t}}</span>
+          <span class="sub header" :style="{color: g.hex || 'c9c9c9'}" v-if="g.t">-{{g.t}}</span>
           <input v-else @keydown.enter="update(g, g)" v-model="g.t" />
           <a @click="u = !u">
             <q-icon name="edit"/>
           </a>
           <a @click="handleRate(g.id, 5)">
-            <q-icon name = "star" size="sm" :class="stars[g.id] ? 'yellow' : 'gray'" />
+            <q-icon name = "star" size="sm" :class="stars[g.id] ? 'yellow' : 'gray'"/>
           </a>
           <br/>相關黑板:
               <router-link :to="'/update/' + g.id">
@@ -97,6 +97,9 @@ h4 {
 .block {
   border: 1px solid black;
   padding: .5em;
+}
+li {
+  display: inline-block;
 }
 
 </style>

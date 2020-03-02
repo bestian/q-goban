@@ -11,25 +11,33 @@
       <div class="row" v-show = "myKey">
         <div class="col-6 col-md-6 col-sm-6" v-for = "g in gobans" v-bind:key= "g.id" v-show='g.id.match(new RegExp(myKey))'>
           <a @click="myKey = g.id; myText=g.t; myRelated=g.related; mytags=g.tags">
-            <q-icon name = "font_download" />
-            {{ g.id }}
+            <h4 :style="{color: hex || 'c9c9c9'}">
+              <q-icon name = "font_download" />
+              {{ g.id }}
+            </h4>
           </a>
         </div>
       </div>
-      <div class="row">
-        <input type='text' name='' v-model='myText' placeholder='輸入黑板的簡介' autofocus='true'/>
+      <div class="q-pa-md row items-start q-gutter-md">
+        <q-color v-model="hex" no-header no-footer class="my-picker" />
       </div>
       <div class="row">
-        <div class="col-6 col-md-6 col-sm-6">相關黑板： {{ myRelated }}</div>
+        <input type='text' name='' v-model='myRelated' placeholder='輸入黑板的簡介' autofocus='true'/>
+      </div>
+      <div class="row">
+        <div class="col-6 col-md-6 col-sm-6">相關黑板： {{myRelated }}</div>
         <div class="col-6 col-md-6 col-sm-6" v-for = "g in gobans" v-bind:key= "g.id">
-          <a @click="adRel(g.id)">
-            <input type ="checkbox" :checkd ="myRelated.indexOf(g.id) > -1" />
+          <a @click="adRel(g.id)" :class="myRelated.indexOf(g.id) > -1 ? 'yellow' : 'gray'">
             {{ g.id }}
           </a>
         </div>
       </div>
       <div class="row">
-        <q-btn color="primary" :label="'更新' + myKey" @click='create(myKey, {t: myText, related:myRelated, tags: myTags})' v-if='myKey'/>
+        <q-btn color="primary" :label="'更新' + myKey" @click='create(myKey, {
+          t: gobans.filter(function(o){ return o.id == $route.params.id })[0].t,
+          related: myRelated,
+          tags: myTags,
+          hex: hex})' v-if='myKey'/>
       </div>
     </div>
   </q-page>
@@ -43,9 +51,9 @@ export default {
   data () {
     return {
       myKey: '',
-      myText: '',
       myRelated: [],
       myTags: [],
+      hex: '#c9c9c9',
       stars: { goban_intro: 5 }
     }
   },
@@ -77,14 +85,21 @@ export default {
     loadStars: function () {
       console.log(this.$q.localStorage.getItem('stars'))
       this.stars = this.$q.localStorage.getItem('stars') || this.stars
+    },
+    getMyRelated: function () {
+      var id = this.$route.params.id
+      return this.gobans.filter(function (o) { return o.id === id })[0].related.slice()
+    },
+    getHex: function () {
+      var id = this.$route.params.id
+      return this.gobans.filter(function (o) { return o.id === id })[0].hex
     }
   },
   mounted () {
     this.loadStars()
     this.myKey = this.$route.params.id
-    this.myText = this.gobans[this.myKey].t || ''
-    this.myRelated = this.gobans[this.myKey].related || ''
-    this.myTags = this.gobans[this.myKey].tags || ''
+    this.myRelated = this.getMyRelated()
+    this.hex = this.getHex()
   }
 }
 </script>

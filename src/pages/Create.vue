@@ -17,6 +17,15 @@
         </div>
       </div>
       <div class="row">
+        <h4 :style="{color: hex || 'c9c9c9'}">
+          <q-icon name = "font_download" />
+          {{ myKey }}
+        </h4>
+      </div>
+      <div class="q-pa-md row items-start q-gutter-md">
+        <q-color v-model="hex" no-header no-footer class="my-picker" />
+      </div>
+      <div class="row">
         <input type='text' name='' v-model='myText' placeholder='輸入黑板的簡介' autofocus='true'/>
       </div>
       <div class="row">
@@ -29,7 +38,11 @@
         </div>
       </div>
       <div class="row">
-        <q-btn color="primary" :label="'創建' + myKey" @click='create(myKey, {t: myText, related:myRelated, tags: myTags})' v-if='myKey'/>
+        <q-btn color="primary" :label="'創建' + myKey" @click='create(myKey, {
+          t: myText,
+          related: myRelated,
+          tags: myTags,
+          hex: hex})' v-if='myKey'/>
       </div>
     </div>
   </q-page>
@@ -46,6 +59,7 @@ export default {
       myText: '',
       myRelated: [],
       myTags: [],
+      hex: '#c9c9c9',
       stars: { goban_intro: 5 }
     }
   },

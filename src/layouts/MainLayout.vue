@@ -20,7 +20,7 @@
           </span>
         </q-toolbar-title>
         <q-space />
-        <a v-if = "getSrc()" :href="getSrc()" target="_blank">前往{{getSrc()}}</a>
+        <a class = "white" v-if = "getSrc()" :href="getSrc()" target="_blank">開新頁面</a>
       </q-toolbar>
     </q-header>
 

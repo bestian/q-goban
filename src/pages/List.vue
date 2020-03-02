@@ -68,8 +68,10 @@ export default {
     },
     loadStars: function () {
       console.log(this.$q.localStorage.getItem('stars'))
-      if (this.$q.localStorage.getItem('stars').goban_intro) {
+      if (this.$q.localStorage.getItem('stars') && this.$q.localStorage.getItem('stars').goban_intro) {
         this.stars = this.$q.localStorage.getItem('stars') || this.stars
+      } else {
+        this.$q.localStorage.set('stars', this.stars)
       }
     }
   },

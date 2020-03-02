@@ -11,13 +11,13 @@
           aria-label="Menu"
         />
         <q-toolbar-title>
-          <router-link to="/" class="white">
-            <q-icon name="home"/>
-          </router-link>
-          <span v-if="$route.params.id && gobans.filter(function(o){ return o.id == $route.params.id })[0]"><router-link v-for="r in gobans.filter(function(o){ return o.id == $route.params.id })[0].related" v-bind:key="r" :to ="'/see/' + r + '/0/0'" v-show="r !== $route.params.id" class="white">
-              {{ r }}
-            </router-link>
-          </span>
+          <q-btn-dropdown v-if="$route.params.id && gobans.filter(function(o){ return o.id == $route.params.id })[0]" color="primary" label="相關黑板">
+            <q-list>
+              <q-item v-for="r in gobans.filter(function(o){ return o.id == $route.params.id })[0].related" v-bind:key="r" :to ="'/see/' + r + '/0/0'" v-show="r !== $route.params.id" :style="{color: gobans.filter(function(o){return o.id == r})[0].hex || 'c9c9c9'}">
+                {{ r }}
+              </q-item>
+            </q-list>
+          </q-btn-dropdown>
         </q-toolbar-title>
         <q-space />
         <a class = "white" v-if = "getSrc()" :href="getSrc()" target="_blank">開新頁面</a>
@@ -32,6 +32,9 @@
     >
       <q-list>
         <q-item>
+          <router-link :to="'/'">
+            <q-icon name = "home" size="md"/>
+          </router-link>
           <router-link :to="'/create'" v-if="!$route.params.id">
             <q-icon name = "edit" size="md"/>
           </router-link>
@@ -45,16 +48,20 @@
             <q-icon name = "star" size="md"/>
           </router-link>
         </q-item>
-        <q-item v-if = "$route.params.id">
-          <a v-for='j in [0,1,2,3]' :key='j' @click="$router.push('/see/' + $route.params.id + '/' + j + '/0'); reload()"> &nbsp;&nbsp;{{ j }}&nbsp;&nbsp; </a>
-        </q-item>
+        <q-btn-dropdown v-if = "$route.params.id" color="primary" :label="'等級'+$route.params.lev">
+          <q-list>
+            <q-item v-for='j in [0,1,2,3]' :key='j' >
+              <a @click="$router.push('/see/' + $route.params.id + '/' + j + '/0'); reload()"> 等級{{ j }}</a>
+            </q-item>
+          </q-list>
+        </q-btn-dropdown>
         <q-item v-else>
           請選擇一個黑板
         </q-item>
         <q-item v-if = "$route.params.id">
           <router-link :to="'/see/' + $route.params.id + '/' + $route.params.lev + '/new'" :style="{color: gobans.filter(function(o){return o.id == $route.params.id})[0].hex || 'c9c9c9'}">
               <img :src="'https://www.google.com/s2/favicons?domain=https://ethercalc.org/'" width="16" height="16"/>
-              | {{name || $route.params.id + ($route.params.lev || '')}}
+              | {{gobans.filter(function(o){return o.id == $route.params.id})[0].t}} - {{name || $route.params.id + ($route.params.lev || '')}}
           </router-link>
         </q-item>
         <q-item v-for="(d, index) in data" v-bind:key="d.name + index">
@@ -181,6 +188,11 @@ export default {
   },
   firebase: {
     gobans: gobansRef
+  },
+  watch: {
+    '$route' (to, from) {
+      this.reload()
+    }
   }
 }
 </script>

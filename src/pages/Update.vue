@@ -22,7 +22,7 @@
         <q-color v-model="hex" no-header no-footer class="my-picker" />
       </div>
       <div class="row">
-        <input type='text' name='' v-model='myRelated' placeholder='輸入黑板的簡介' autofocus='true'/>
+        <input type='text' name='' v-model='gobans.filter(function(o){ return o.id == $route.params.id })[0].t' placeholder='輸入黑板的簡介' autofocus='true'/>
       </div>
       <div class="row">
         <div class="col-6 col-md-6 col-sm-6">相關黑板： {{myRelated }}</div>

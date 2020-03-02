@@ -72,7 +72,7 @@ export default {
   color: gray;
 }
 .q-item {
-  font-size: 4em !important;
+  font-size: 1.6em !important;
 }
 
 </style>

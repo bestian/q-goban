@@ -1,1 +1,29 @@
 // app global css in SCSS form
+html body {
+	padding: 0;
+	margin: 0;
+	font-size: 18px;
+}
+
+a, router-link {
+text-decoration: none;
+cursor: pointer;
+margin: 0 .5em;
+font-size: 1em;
+}
+
+h4 {
+	font-size: 1.6em;
+}
+
+a.white {
+color: white !important;
+}
+
+.floating.right {
+float: right;
+}
+
+.sub.header {
+color: grey;
+}

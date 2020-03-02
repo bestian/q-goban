@@ -33,16 +33,16 @@
       <q-list>
         <q-item>
           <router-link :to="'/create'" v-if="!$route.params.id">
-            <q-icon name = "edit" size="lg"/>
+            <q-icon name = "edit" size="md"/>
           </router-link>
-          <router-link v-else :to="'/update/' + $route.params.id" >
-            <q-icon name = "edit" size="lg"/>
+          <router-link v-else :to="'/update/' + $route.params.id" :style="{color: gobans.filter(function(o){return o.id == $route.params.id})[0].hex || 'c9c9c9'}">
+            <q-icon name = "edit" size="md"/>
           </router-link>
           <router-link :to="'/list'">
-            <q-icon name = "search" size="lg"/>
+            <q-icon name = "search" size="md"/>
           </router-link>
           <router-link :to="'/star'">
-            <q-icon name = "star" size="lg"/>
+            <q-icon name = "star" size="md"/>
           </router-link>
         </q-item>
         <q-item v-if = "$route.params.id">
@@ -52,7 +52,7 @@
           請選擇一個黑板
         </q-item>
         <q-item v-if = "$route.params.id">
-          <router-link :to="'/see/' + $route.params.id + '/' + $route.params.lev + '/new'">
+          <router-link :to="'/see/' + $route.params.id + '/' + $route.params.lev + '/new'" :style="{color: gobans.filter(function(o){return o.id == $route.params.id})[0].hex || 'c9c9c9'}">
               <img :src="'https://www.google.com/s2/favicons?domain=https://ethercalc.org/'" width="16" height="16"/>
               | {{name || $route.params.id + ($route.params.lev || '')}}
           </router-link>
@@ -186,24 +186,4 @@ export default {
 </script>
 
 <style type="text/css">
-
-  a, router-link {
-    text-decoration: none;
-    cursor: pointer;
-    margin: 0 .5em;
-    font-size: .6em;
-  }
-
-  a.white {
-    color: white !important;
-  }
-
-  .floating.right {
-    float: right;
-  }
-
-  .sub.header {
-    color: grey;
-  }
-
 </style>

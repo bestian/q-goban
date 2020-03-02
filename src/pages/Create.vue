@@ -10,25 +10,25 @@
       </div>
       <div class="row" v-show = "myKey">
         <div class="col-6 col-md-6 col-sm-6" v-for = "g in gobans" v-bind:key= "g.id" v-show='g.id.match(new RegExp(myKey))'>
-          <a @click="myKey = g.id; myText=g.t; myRelated=g.related; mytags=g.tags">
+          <router-link :to="'/update/'+g.id" :style="{color: g.hex || 'c9c9c9'}">
             <q-icon name = "font_download" />
             {{ g.id }}
-          </a>
+          </router-link>
         </div>
       </div>
-      <div class="row">
+      <div class="row" v-show="gobans.filter(function(o){return o.id == myKey}).length == 0">
         <h4 :style="{color: hex || 'c9c9c9'}">
           <q-icon name = "font_download" />
           {{ myKey }}
         </h4>
       </div>
-      <div class="q-pa-md row items-start q-gutter-md">
+      <div class="q-pa-md row items-start q-gutter-md" v-show="gobans.filter(function(o){return o.id == myKey}).length == 0">
         <q-color v-model="hex" no-header no-footer class="my-picker" />
       </div>
-      <div class="row">
+      <div class="row" v-show="gobans.filter(function(o){return o.id == myKey}).length == 0">
         <input type='text' name='' v-model='myText' placeholder='輸入黑板的簡介' autofocus='true'/>
       </div>
-      <div class="row">
+      <div class="row" v-show="gobans.filter(function(o){return o.id == myKey}).length == 0">
         <div class="col-6 col-md-6 col-sm-6">相關黑板： {{ myRelated }}</div>
         <div class="col-6 col-md-6 col-sm-6" v-for = "g in gobans" v-bind:key= "g.id">
           <a @click="adRel(g.id)">
@@ -37,7 +37,7 @@
           </a>
         </div>
       </div>
-      <div class="row">
+      <div class="row" v-show="gobans.filter(function(o){return o.id == myKey}).length == 0">
         <q-btn color="primary" :label="'創建' + myKey" @click='create(myKey, {
           t: myText,
           related: myRelated,

@@ -6,7 +6,6 @@
       </div>
       <div class="row">
         <input v-autofocus="" type='search' name='' v-model='myKey' placeholder='搜詢黑板' autofocus='true'/>
-        <q-btn color="primary" :label="'創建' + myKey" @click='create(myKey)' v-if='myKey'/>
       </div>
       <div class="row">
         <div class="col-12 col-lg-6 col-md-12 col-sm-12 block" v-for = "g in gobans" v-bind:key= "g.id">

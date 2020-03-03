@@ -1,6 +1,7 @@
 <template>
   <q-page class="flex flex-center">
-    <iframe width="100%" height="600" name='iframe' :src='getSrc()' />
+    <!--<iframe width="100%" height="600" name='iframe' :src='getSrc()'/>-->
+    <a class="link" size="lg" v-if = "getSrc()" @click="op(getSrc())">{{getSrc()}}</a>
   </q-page>
 </template>
 
@@ -24,6 +25,9 @@ export default {
       }
       return undefined
     },
+    op: function (url) {
+      window.open(url, '_system')
+    },
     create: function (k) {
       this.$emit('create', k)
     },
@@ -36,3 +40,10 @@ export default {
   }
 }
 </script>
+
+<style type="text/css" scoped="">
+a.link {
+  text-decoration: underline;
+  color: blue;
+}
+</style>

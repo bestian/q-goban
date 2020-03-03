@@ -10,6 +10,7 @@
           icon="menu"
           aria-label="Menu"
         />
+        <q-space />
         <q-toolbar-title>
           <q-btn-dropdown v-if="$route.params.id && gobans.filter(function(o){ return o.id == $route.params.id })[0]" color="primary" label="相關黑板">
             <q-list>
@@ -19,8 +20,6 @@
             </q-list>
           </q-btn-dropdown>
         </q-toolbar-title>
-        <q-space />
-        <a class = "white" v-if = "getSrc()" :href="getSrc()" target="_blank">開新頁面</a>
       </q-toolbar>
     </q-header>
 
@@ -135,6 +134,9 @@ export default {
         }
       }
       return undefined
+    },
+    op: function (url) {
+      window.open(url, '_system')
     },
     tar: function (x) {
       if ((x.note + '').match(/blank/)) {

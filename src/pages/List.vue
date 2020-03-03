@@ -62,12 +62,12 @@ export default {
       this.$emit('reload')
     },
     handleRate: function (g, r) {
-      console.log('handleRate')
-      console.log(g)
       if (!this.stars[g]) { this.stars[g] = 0 }
-      this.stars[g] += r
-      if (this.stars[g] === 10) { this.stars[g] = 0 }
-      console.log(this.stars)
+      if (this.stars[g] === r) {
+        this.stars[g] = 0
+      } else {
+        this.stars[g] = r
+      }
       this.$q.localStorage.set('stars', this.stars)
       console.log(this.$q.localStorage.getItem('stars'))
       this.$forceUpdate()

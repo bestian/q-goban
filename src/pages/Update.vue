@@ -2,21 +2,7 @@
   <q-page class="flex flex-center">
     <div class="q-pa-md">
       <div class="row">
-        <h4>更新黑板</h4>
-      </div>
-      <br/>
-      <div class="row">
-        <input v-autofocus="" type='search' name='' v-model='myKey' placeholder='輸入黑板的id' autofocus='true'/>
-      </div>
-      <div class="row" v-show = "myKey">
-        <div class="col-6 col-md-6 col-sm-6" v-for = "g in gobans" v-bind:key= "g.id" v-show='g.id.match(new RegExp(myKey))'>
-          <a @click="myKey = g.id; myText=g.t; myRelated=g.related; mytags=g.tags">
-            <h4 :style="{color: hex || 'c9c9c9'}">
-              <q-icon name = "font_download" />
-              {{ g.id }}
-            </h4>
-          </a>
-        </div>
+        <h4 :style="{color: hex || 'c9c9c9'}">更新{{myKey}}</h4>
       </div>
       <div class="q-pa-md row items-start q-gutter-md">
         <q-color v-model="hex" no-header no-footer class="my-picker" />

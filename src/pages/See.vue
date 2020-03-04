@@ -1,7 +1,40 @@
 <template>
   <q-page class="flex flex-center">
     <!--<iframe width="100%" height="600" name='iframe' :src='getSrc()'/>-->
-    <a class="link" size="lg" v-if = "getSrc()" @click="op(getSrc())">{{getSrc()}}</a>
+    <q-list>
+      <q-btn-dropdown v-if = "$route.params.id" color="primary" :label="'等級'+$route.params.lev">
+        <q-list>
+          <q-item v-for='j in [0,1,2,3]' :key='j' >
+            <a @click="$router.push('/see/' + $route.params.id + '/' + j + '/0'); reload()"> 等級{{ j }}</a>
+          </q-item>
+        </q-list>
+      </q-btn-dropdown>
+      <q-item v-if = "$route.params.id">
+        <a @click="op('https://ethercalc.org/' + $route.params.id + ($route.params.lev || ''))" :style="{color: gobans.filter(function(o){return o.id == $route.params.id})[0].hex || 'c9c9c9'}">
+            <img :src="'https://www.google.com/s2/favicons?domain=https://ethercalc.org/'" width="16" height="16"/>
+            | {{gobans.filter(function(o){return o.id == $route.params.id})[0].t}} - {{name || $route.params.id + ($route.params.lev || '')}}
+            <q-icon name = "edit"/>
+        </a>
+      </q-item>
+      <q-item v-for="(d, index) in data" v-bind:key="d.name + index">
+        <div v-if="d.type == 'folder'" v-show='!d.parentIndex || data[d.parentIndex].open'>
+          <a @click='d.open = !d.open'>
+            <q-icon name = "folder"/>
+            {{ d.name }}
+            <span v-if = "!d.open">
+              +
+            </span>
+            <span v-else>
+              -
+            </span>
+          </a>
+        </div>
+        <a class = "link" v-else @click = "op(d.url)" v-show="!d.parentIndex || data[d.parentIndex].open">
+          <img :src="'https://www.google.com/s2/favicons?domain=' + d.url" width="16" height="16"/>
+          {{ d.name }}
+        </a>
+      </q-item>
+    </q-list>
   </q-page>
 </template>
 
@@ -11,7 +44,8 @@ export default {
   props: ['gobans', 'data'],
   data () {
     return {
-      myKey: ''
+      myKey: '',
+      name: ''
     }
   },
   methods: {
@@ -45,5 +79,11 @@ export default {
 a.link {
   text-decoration: underline;
   color: blue;
+  margin-left: 1em;
+}
+
+.q-item {
+  min-height: 0;
+  padding: 0;
 }
 </style>

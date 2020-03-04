@@ -47,32 +47,17 @@
             <q-icon name = "star" size="md"/>
           </router-link>
         </q-item>
-        <q-btn-dropdown v-if = "$route.params.id" color="primary" :label="'等級'+$route.params.lev">
-          <q-list>
-            <q-item v-for='j in [0,1,2,3]' :key='j' >
-              <a @click="$router.push('/see/' + $route.params.id + '/' + j + '/0'); reload()"> 等級{{ j }}</a>
-            </q-item>
-          </q-list>
-        </q-btn-dropdown>
-        <q-item v-else>
+        <q-item>
           請選擇一個黑板
         </q-item>
-        <q-item v-if = "$route.params.id">
-          <router-link :to="'/see/' + $route.params.id + '/' + $route.params.lev + '/new'" :style="{color: gobans.filter(function(o){return o.id == $route.params.id})[0].hex || 'c9c9c9'}">
-              <img :src="'https://www.google.com/s2/favicons?domain=https://ethercalc.org/'" width="16" height="16"/>
-              | {{gobans.filter(function(o){return o.id == $route.params.id})[0].t}} - {{name || $route.params.id + ($route.params.lev || '')}}
-          </router-link>
+        <q-item class="row">
+          <input v-autofocus="" type='search' name='' v-model='myKey' placeholder='搜詢黑板' autofocus='true'/>
         </q-item>
-        <q-item v-for="(d, index) in data" v-bind:key="d.name + index">
-          <router-link  v-if="d.type == 'link'" v-show='!d.parentIndex || data[d.parentIndex].open' :to="'/see/' + $route.params.id + '/' + $route.params.lev + '/' + index" >
-
-            <img :src="'https://www.google.com/s2/favicons?domain=' + d.url" width="16" height="16"/>
-            {{ d.name }}
-          </router-link>
-          <div v-if="d.type == 'folder'" v-show='!d.parentIndex || data[d.parentIndex].open'>
-            <a @click='d.open = !d.open'>
-              {{ d.name }}
-            </a>
+        <q-item v-for = "g in gobans" v-bind:key= "g.id">
+          <div class="inner" v-show='!myKey || has(g, myKey)'>
+            <router-link :to="'see/' + g.id + '/0/0'" :style="{color: g.hex || 'c9c9c9'}">{{ g.id }}
+              <span class="sub header" :style="{color: g.hex || 'c9c9c9'}" v-if="g.t && !u">-{{g.t}}</span>
+            </router-link>
           </div>
         </q-item>
       </q-list>
@@ -96,10 +81,18 @@ export default {
       leftDrawerOpen: false,
       gobans: [],
       data: [],
-      name: ''
+      name: '',
+      myKey: '',
+      myText: '',
+      u: false,
+      stars: { goban_intro: 5 }
     }
   },
   methods: {
+    has: function (g, k) {
+      var r = new RegExp(k)
+      return r.test(g.id)
+    },
     create: function (k, obj) {
       console.log(typeof obj)
       if (typeof obj !== 'object') { obj = {} }

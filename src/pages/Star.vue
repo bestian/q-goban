@@ -5,7 +5,7 @@
         <h3>我的珍藏</h3>
       </div>
       <div class="row">
-        <input v-autofocus="" type='search' name='' v-model='myKey' placeholder='搜詢黑板' autofocus='true'/>
+        <input v-autofocus="" type='search' name='' v-model='myKey' placeholder='搜詢黑板' autofocus='true' />
       </div>
       <div class="row">
         <div class="col-12 col-lg-6 col-md-12 col-sm-12 block" v-for = "g in gobans" v-bind:key= "g.id">

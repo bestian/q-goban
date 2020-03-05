@@ -51,7 +51,10 @@
           請選擇一個黑板
         </q-item>
         <q-item class="row">
-          <input v-autofocus="" type='search' name='' v-model='myKey' placeholder='搜詢黑板' autofocus='true'/>
+          <input v-autofocus="" type='search' name='' v-model='myKey' placeholder='搜詢黑板' autofocus='true' list="gs"/>
+          <datalist id ="gs">
+            <option v-for = "g in gobans" v-bind:key = "g.id" :value="g.id"> {{ g.id }} </option>
+          </datalist>
         </q-item>
         <q-item v-for = "g in gobans" v-bind:key= "g.id">
           <div class="inner" v-show='!myKey || has(g, myKey)'>

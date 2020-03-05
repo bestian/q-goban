@@ -2,7 +2,10 @@
   <q-page class="flex flex-center">
     <div class="q-pa-md">
       <div class="row">
-        <input v-autofocus="" type='search' name='' v-model='myKey' placeholder='搜詢黑板' autofocus='true'/>
+        <input v-autofocus="" type='search' name='' v-model='myKey' placeholder='搜詢黑板' autofocus='true' list="gs" />
+          <datalist id ="gs">
+            <option v-for = "g in gobans" v-bind:key = "g.id" :value="g.id"> {{ g.id }} </option>
+          </datalist>
       </div>
       <div class="row">
         <div class="col-12 col-lg-6 col-md-12 col-sm-12 block" v-for = "g in gobans" v-bind:key= "g.id">
@@ -108,6 +111,9 @@ h4 {
 }
 li {
   display: inline-block;
+}
+input {
+  margin: 1em 1em
 }
 
 </style>

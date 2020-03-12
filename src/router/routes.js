@@ -10,6 +10,7 @@ const routes = [
       { path: '/update/:id', component: () => import('pages/Update.vue') },
       { path: '/intro', component: () => import('pages/Intro.vue') },
       { path: '/star', component: () => import('pages/Star.vue') },
+      { path: '/chat', component: () => import('pages/Chat.vue') },
       { path: '/see/:id/:lev/:index', component: () => import('pages/See.vue') }
     ]
   }

@@ -19,6 +19,10 @@
           <router-link to="/intro"><q-item-label>
             <q-icon name="info"/>導覽</q-item-label></router-link>
         </q-item>
+        <q-item clickable v-ripple>
+          <router-link to="/chat"><q-item-label>
+            <q-icon name="chat"/>留言板</q-item-label></router-link>
+        </q-item>
       </q-list>
     </div>
   </q-page>

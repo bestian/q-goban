@@ -67,13 +67,13 @@
     </q-drawer>
 
     <q-page-container>
-      <router-view :gobans="gobans" :data="data" @create="create" @update="update" @reload = "reload"/>
+      <router-view :gobans = "gobans" :data = "data" @create = "create" @update = "update" @reload = "reload" :chats= "chats" @submit = "submit"/>
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
-import { db, gobansRef } from '../firebase/db'
+import { db, gobansRef, chatsRef } from '../firebase/db'
 
 export default {
   name: 'MainLayout',
@@ -83,6 +83,7 @@ export default {
     return {
       leftDrawerOpen: false,
       gobans: [],
+      chats: [],
       data: [],
       name: '',
       myKey: '',
@@ -92,6 +93,20 @@ export default {
     }
   },
   methods: {
+    submit: function (n, email, t) {
+      var o = {
+        n: n,
+        email: email,
+        t: t,
+        time: (new Date()).getTime()
+      }
+      if (t) {
+        this.$firebaseRefs.chats.push(o)
+        window.alert('留言已送出')
+      } else {
+        window.alert('請輸入留言')
+      }
+    },
     has: function (g, k) {
       var r = new RegExp(k)
       return r.test(g.id)
@@ -185,7 +200,8 @@ export default {
     }
   },
   firebase: {
-    gobans: gobansRef
+    gobans: gobansRef,
+    chats: chatsRef
   },
   watch: {
     '$route' (to, from) {

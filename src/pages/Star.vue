@@ -10,7 +10,7 @@
       <div class="row">
         <div class="col-12 col-lg-6 col-md-12 col-sm-12 block" v-for = "g in gobans" v-bind:key= "g.id">
           <div class="inner" v-if = "stars[g.id] > 0" v-show='has(g,myKey)'>
-            <router-link :to="'see/' + g.id + '/0/0'">
+            <router-link :to="'/see/' + g.id + '/0/0'">
               <h4>{{ g.id }}</h4>
             </router-link>
             <span class="sub header" v-if="g.t && !u">-{{g.t}}</span>

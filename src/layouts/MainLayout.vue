@@ -61,6 +61,9 @@
             <router-link :to="'see/' + g.id + '/0/0'" :style="{color: g.hex || 'c9c9c9'}">{{ g.id }}
               <span class="sub header" :style="{color: g.hex || 'c9c9c9'}" v-if="g.t && !u">-{{g.t}}</span>
             </router-link>
+            <router-link :to="'/update/' + g.id">
+              <q-icon name="build"/>
+            </router-link>
           </div>
         </q-item>
       </q-list>
@@ -120,6 +123,7 @@ export default {
       obj.text = obj.t || k
       obj.related = obj.related || [k]
       obj.tags = obj.tags || [k]
+      obj.use_lev = true
       console.log(obj)
       db.ref('gobans/' + k).set(obj)
       this.$router.push('/see/' + k + '/0/new')

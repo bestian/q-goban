@@ -27,6 +27,7 @@ export default {
       obj.text = obj.t || k
       obj.related = obj.related || [k]
       obj.tags = obj.tags || [k]
+      obj.use_lev = true
       console.log(obj)
       db.ref('gobans/' + k).set(obj)
       this.$router.push('/see/' + k + '/0/new')

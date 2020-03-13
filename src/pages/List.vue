@@ -10,10 +10,11 @@
       <div class="row">
         <div class="col-12 col-lg-6 col-md-12 col-sm-12 block" v-for = "g in gobans" v-bind:key= "g.id">
           <div class="inner" v-show='!myKey || has(g, myKey)'>
-            <router-link :to="'see/' + g.id + '/0/0'">
+            <router-link :to="'/see/' + g.id + '/0/0'">
               <h4 :style="{color: g.hex || 'c9c9c9'}">{{ g.id }}</h4>
+              <span class="sub header" :style="{color: g.hex || 'c9c9c9'}" v-if="g.t && !u">-{{g.t}}</span>
             </router-link>
-            <span class="sub header" :style="{color: g.hex || 'c9c9c9'}" v-if="g.t && !u">-{{g.t}}</span>
+            <span v-if="g.t && !u"></span>
             <input v-else @keydown.enter="update(g, g)" v-model="g.t" />
             <a @click="u = !u">
               <q-icon name="edit"/>
@@ -23,7 +24,7 @@
             </a>
             <br/>相關黑板:
                 <router-link :to="'/update/' + g.id">
-                  <q-icon name="edit"/>
+                  <q-icon name="build"/>
                 </router-link>
             <ol>
               <li v-for="r in g.related" v-show ="r != g.id" v-bind:key="r">

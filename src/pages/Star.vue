@@ -12,8 +12,8 @@
           <div class="inner" v-if = "stars[g.id] > 0" v-show='has(g,myKey)'>
             <router-link :to="'/see/' + g.id + '/0/0'">
               <h4>{{ g.id }}</h4>
+              <span class="sub header" v-if="g.t && !u">-{{g.t}}</span>
             </router-link>
-            <span class="sub header" v-if="g.t && !u">-{{g.t}}</span>
             <input v-else @keydown.enter="update(g, g)" v-model="g.t" />
             <a @click="u = !u">
               <q-icon name="edit"/>

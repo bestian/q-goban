@@ -8,6 +8,10 @@ import { rtdbPlugin } from 'vuefire'
 
 import autofocus from 'vue-autofocus-directive'
 
+import VueSimpleMarkdown from 'vue-simple-markdown'
+
+Vue.use(VueSimpleMarkdown)
+
 Vue.directive('autofocus', autofocus)
 
 Vue.use(VueResource)

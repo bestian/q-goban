@@ -7,13 +7,14 @@
           v-for = "c in chats" :key = "c.time"
           :name="c.n"
           avatar="../assets/quasar-logo-full.svg"
-          :text="[ c.t ]"
           :stamp="parseTime(c.time)"
-        />
+        ><vue-simple-markdown :source="c.t"></vue-simple-markdown></q-chat-message>
       </div>
+
+      <q-btn v-if = "!user" color="deep-orange" @click = "loginGoogle()">以Google登入</q-btn>
       <q-form
+          v-else
           @submit="submit(myName, myEmail, myText)"
-          @reset="onReset"
           class="q-gutter-md">
         <q-input
           filled
@@ -36,7 +37,6 @@
 
         <div>
           <q-btn label="Submit" type="submit" color="primary"/>
-          <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
         </div>
       </q-form>
     </div>
@@ -47,7 +47,7 @@
 
 export default {
   name: 'PageIndex',
-  props: ['chats'],
+  props: ['chats', 'user'],
   data () {
     return {
       myName: '訪客',
@@ -56,6 +56,9 @@ export default {
     }
   },
   methods: {
+    loginGoogle: function () {
+      this.$emit('loginGoogle')
+    },
     submit: function (n, email, t) {
       this.myName = '訪客'
       this.myEmail = ''

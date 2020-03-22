@@ -70,12 +70,15 @@
     </q-drawer>
 
     <q-page-container>
-      <router-view :gobans = "gobans" :data = "data" @create = "create" @update = "update" @reload = "reload" :chats= "chats" @submit = "submit"/>
+      <router-view :uid="uid" :user ="user" :myUser="myUser" :users="users" :gobans = "gobans" :data = "data" @create = "create" @update = "update" @reload = "reload" :chats= "chats" @submit = "submit" @loginGoogle = "loginGoogle" @tryIt="tryIt()"/>
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
+
+import firebase from 'firebase/app'
+import 'firebase/auth'
 import { db, gobansRef, chatsRef } from '../firebase/db'
 
 export default {
@@ -86,6 +89,10 @@ export default {
     return {
       leftDrawerOpen: false,
       gobans: [],
+      uid: undefined,
+      user: undefined, // user object
+      users: [],
+      myUser: undefined, // user on firebase
       chats: [],
       data: [],
       name: '',
@@ -96,6 +103,56 @@ export default {
     }
   },
   methods: {
+    setUser: function (id, obj) {
+      console.log(obj)
+      if (!this.users[id]) {
+        db.ref('users/' + id).set(obj)
+      } else {
+        this.users.child(id).update(obj)
+      }
+    },
+    tryIt: function () {
+      this.user = {
+        uid: undefined,
+        photoURL: '/static/favicon.png'
+      }
+    },
+    loginGoogle: function () {
+      var vm = this
+      var provider = new firebase.auth.GoogleAuthProvider()
+      firebase.auth().signInWithPopup(provider).then(function (result) {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        vm.provider = 'google'
+        vm.token = result.credential.accessToken
+        // The signed-in user info.
+        vm.uid = result.user.uid
+        vm.user = result.user
+        vm.photoURL = vm.user.photoURL
+
+        var obj = {
+          id: vm.uid,
+          name: vm.user.displayName,
+          photoURL: vm.photoURL,
+          email: vm.user.email
+        }
+        vm.setUser(vm.uid, obj)
+        // ...
+      }).catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code
+        var errorMessage = error.message
+        // The email of the user's account used.
+        var email = error.email
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential
+        console.log(errorCode + errorMessage + email + credential)
+      })
+    },
+    signOut: function () {
+      firebase.auth().signOut().then(() => {
+        this.user = null
+      }).catch(err => console.log(err))
+    },
     submit: function (n, email, t) {
       var o = {
         n: n,

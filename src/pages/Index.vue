@@ -1,6 +1,10 @@
 <template>
   <q-page class="flex flex-center">
-    <div class="q-pa-md">
+    <div class="q-pa-md" v-if = "!user">
+      <h4>讓知識星棋羅列</h4>
+      <q-btn color="deep-orange" @click = "loginGoogle()">以Google登入</q-btn>
+    </div>
+    <div class="q-pa-md" v-else>
       <h4>讓知識星棋羅列</h4>
       <q-list bordered separator>
         <q-item clickable v-ripple>
@@ -32,7 +36,7 @@
 
 export default {
   name: 'PageIndex',
-  props: ['gobans'],
+  props: ['gobans', 'user'],
   data () {
     return {
       myKey: '',
@@ -40,6 +44,9 @@ export default {
     }
   },
   methods: {
+    loginGoogle: function () {
+      this.$emit('loginGoogle')
+    },
     create: function (k) {
       this.$emit('create', k)
     },

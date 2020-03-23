@@ -103,18 +103,23 @@ export default {
     }
   },
   methods: {
+    tryIt: function () {
+      this.user = {
+        uid: undefined,
+        user: {
+          id: 'guest',
+          name: 'guest',
+          photoURL: '/static/favicon.png'
+        },
+        photoURL: '/static/favicon.png'
+      }
+    },
     setUser: function (id, obj) {
       console.log(obj)
       if (!this.users[id]) {
         db.ref('users/' + id).set(obj)
       } else {
         this.users.child(id).update(obj)
-      }
-    },
-    tryIt: function () {
-      this.user = {
-        uid: undefined,
-        photoURL: '/static/favicon.png'
       }
     },
     loginGoogle: function () {
@@ -188,6 +193,7 @@ export default {
     update: function (k, obj) {
       console.log(typeof obj)
       if (typeof obj !== 'object') { obj = {} }
+      obj.uid = this.uid
       obj.name = k
       obj.t = obj.t || this.gobans[k].t
       obj.text = obj.t || this.gobans[k].t
@@ -268,6 +274,9 @@ export default {
     '$route' (to, from) {
       this.reload()
     }
+  },
+  mounted () {
+    this.tryIt()
   }
 }
 </script>

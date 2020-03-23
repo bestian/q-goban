@@ -2,13 +2,13 @@
   <q-page class="flex flex-center">
     <div class="q-pa-md">
       <div class="row">
-        <h4>創建黑板</h4>
+        <h4>創建棋盤</h4>
       </div>
       <br/>
       <q-btn v-if = "!user" color="deep-orange" @click = "loginGoogle()">以Google登入</q-btn>
       <div v-show="user">
         <div class="row">
-          <input v-autofocus="" type='search' name='' v-model='myKey' placeholder='輸入黑板的id' autofocus='true'/>
+          <input v-autofocus="" type='search' name='' v-model='myKey' placeholder='輸入棋盤的id' autofocus='true'/>
         </div>
         <div class="row" v-show = "myKey">
           <div class="col-6 col-md-6 col-sm-6" v-for = "g in gobans" v-bind:key= "g.id" v-show='g.id.match(new RegExp(myKey))'>
@@ -28,10 +28,10 @@
           <q-color v-model="hex" no-header no-footer class="my-picker" />
         </div>
         <div class="row" v-show="gobans.filter(function(o){return o.id == myKey}).length == 0">
-          <input type='text' name='' v-model='myText' placeholder='輸入黑板的簡介' autofocus='true'/>
+          <input type='text' name='' v-model='myText' placeholder='輸入棋盤的簡介' autofocus='true'/>
         </div>
         <div class="row" v-show="gobans.filter(function(o){return o.id == myKey}).length == 0">
-          <div class="col-6 col-md-6 col-sm-6">相關黑板： {{ myRelated }}</div>
+          <div class="col-6 col-md-6 col-sm-6">相關棋盤： {{ myRelated }}</div>
           <div class="col-6 col-md-6 col-sm-6" v-for = "g in gobans" v-bind:key= "g.id">
             <a @click="adRel(g.id)">
               <input type ="checkbox" :checkd ="myRelated.indexOf(g.id) > -1" />

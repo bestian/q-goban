@@ -12,7 +12,7 @@
         />
         <q-space />
         <q-toolbar-title>
-          <q-btn-dropdown v-if="$route.params.id && gobans.filter(function(o){ return o.id == $route.params.id })[0]" color="primary" label="相關黑板">
+          <q-btn-dropdown v-if="$route.params.id && gobans.filter(function(o){ return o.id == $route.params.id })[0]" color="primary" label="相關棋盤">
             <q-list>
               <q-item v-for="r in gobans.filter(function(o){ return o.id == $route.params.id })[0].related" v-bind:key="r" :to ="'/see/' + r + '/0/0'" v-show="r !== $route.params.id" :style="{color: gobans.filter(function(o){return o.id == r})[0].hex || 'c9c9c9'}">
                 {{ r }}
@@ -48,10 +48,10 @@
           </router-link>
         </q-item>
         <q-item>
-          請選擇一個黑板
+          請選擇一個棋盤
         </q-item>
         <q-item class="row">
-          <input v-autofocus="" type='search' name='' v-model='myKey' placeholder='搜詢黑板' autofocus='true' list="gs"/>
+          <input v-autofocus="" type='search' name='' v-model='myKey' placeholder='搜詢棋盤' autofocus='true' list="gs"/>
           <datalist id ="gs">
             <option v-for = "g in gobans" v-bind:key = "g.id" :value="g.id"> {{ g.id }} </option>
           </datalist>

@@ -1,8 +1,8 @@
 {
-  "name": "零時黑板",
-  "version": "2.0.0",
+  "name": "知識棋盤",
+  "version": "2.0.1",
   "description": "A Quasar Framework app",
-  "productName": "零時黑板",
+  "productName": "知識棋盤",
   "cordovaId": "tw.goban.app",
   "capacitorId": "",
   "author": "Bestian Tang <bestian@gmail.com>",

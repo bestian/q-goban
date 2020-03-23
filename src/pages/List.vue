@@ -2,7 +2,7 @@
   <q-page class="flex flex-center">
     <div class="q-pa-md">
       <div class="row">
-        <input v-autofocus="" type='search' name='' v-model='myKey' placeholder='搜詢黑板' autofocus='true' list="gs" />
+        <input v-autofocus="" type='search' name='' v-model='myKey' placeholder='搜詢棋盤' autofocus='true' list="gs" />
           <datalist id ="gs">
             <option v-for = "g in gobans" v-bind:key = "g.id" :value="g.id"> {{ g.id }} </option>
           </datalist>
@@ -22,7 +22,7 @@
             <a @click="handleRate(g.id, 5)">
               <q-icon name = "star" size="sm" :class="stars[g.id] ? 'yellow' : 'gray'"/>
             </a>
-            <br/>相關黑板:
+            <br/>相關棋盤:
                 <router-link :to="'/update/' + g.id">
                   <q-icon name="build"/>
                 </router-link>

@@ -14,7 +14,7 @@
         <q-toolbar-title>
           <q-btn-dropdown v-if="$route.params.id && gobans.filter(function(o){ return o.id == $route.params.id })[0]" color="primary" label="相關棋盤">
             <q-list>
-              <q-item v-for="r in gobans.filter(function(o){ return o.id == $route.params.id })[0].related" v-bind:key="r" :to ="'/see/' + r + '/0/0'" v-show="r !== $route.params.id" :style="{color: gobans.filter(function(o){return o.id == r})[0].hex || 'c9c9c9'}">
+              <q-item v-for="r in gobans.filter(function(o){ return o.id == $route.params.id })[0].related" v-bind:key="r" :to ="'/see/' + r + '/0/0'" v-show="r !== $route.params.id">
                 {{ r }}
               </q-item>
             </q-list>
@@ -37,7 +37,7 @@
           <router-link :to="'/create'" v-if="!$route.params.id">
             <q-icon name = "edit" size="md"/>
           </router-link>
-          <router-link v-else :to="'/update/' + $route.params.id" :style="{color: gobans.filter(function(o){return o.id == $route.params.id})[0].hex || 'c9c9c9'}">
+          <router-link v-else :to="'/update/' + $route.params.id">
             <q-icon name = "edit" size="md"/>
           </router-link>
           <router-link :to="'/list'">
@@ -185,7 +185,7 @@ export default {
       obj.text = obj.t || k
       obj.related = obj.related || [k]
       obj.tags = obj.tags || [k]
-      obj.use_lev = true
+      obj.use_lev = obj.use_lev || false
       console.log(obj)
       db.ref('gobans/' + k).set(obj)
       this.$router.push('/see/' + k + '/0/new')
@@ -205,13 +205,23 @@ export default {
     },
     getSrc: function () {
       if (this.$route.params.index === 'new') {
-        return 'https://ethercalc.org/' + this.$route.params.id + this.$route.params.lev
+        return 'https://ethercalc.org/' + this.$route.params.id + (this.$route.params.lev || '')
       } else {
-        if (this.data[this.$route.params.index]) {
-          return this.data[this.$route.params.index].url
+        if (!this.mydata[0]) { return undefined }
+        if (this.mydata[this.$route.params.index]) {
+          return decodeURIComponent(this.mydata[this.$route.params.index].url)
         }
       }
       return undefined
+    },
+    srcURL: function () {
+      var ans
+      if (this.gobans && this.gobans[this.$route.params.id] && this.gobans[this.$route.params.id].use_lev) {
+        ans = 'https://ethercalc.org/' + this.$route.params.id + (this.$route.params.lev === '_' ? '' : this.$route.params.lev) + '.csv.json'
+      } else {
+        ans = 'https://ethercalc.org/' + this.$route.params.id + '.csv.json'
+      }
+      return ans
     },
     op: function (url) {
       window.open(url, '_system')
@@ -226,7 +236,7 @@ export default {
     reload: function () {
       console.log('reload...')
       // GET /someUrl
-      this.$http.get('https://ethercalc.org/' + this.$route.params.id + this.$route.params.lev + '.csv.json').then(response => {
+      this.$http.get(this.srcURL()).then(response => {
         // get body data
         this.data = this.parse(response.body)
         this.$forceUpdate()
@@ -272,6 +282,9 @@ export default {
   },
   watch: {
     '$route' (to, from) {
+      this.reload()
+    },
+    'gobans' (to, from) {
       this.reload()
     }
   },

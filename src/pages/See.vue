@@ -2,7 +2,7 @@
   <q-page class="flex flex-center">
     <!--<iframe width="100%" height="600" name='iframe' :src='getSrc()'/>-->
     <q-list>
-      <q-btn-dropdown v-if = "$route.params.id" color="primary" :label="'等級'+$route.params.lev">
+      <q-btn-dropdown v-if = "gobans && gobans[$route.params.id] && gobans.filter(function(o){return o.id == $route.params.id})[0].use_lev" color="primary" :label="'等級'+$route.params.lev">
         <q-list>
           <q-item v-for='j in [0,1,2,3]' :key='j' >
             <a @click="$router.push('/see/' + $route.params.id + '/' + j + '/0'); reload()"> 等級{{ j }}</a>
@@ -10,7 +10,7 @@
         </q-list>
       </q-btn-dropdown>
       <q-item v-if = "$route.params.id">
-        <a @click="op('https://ethercalc.org/' + $route.params.id + ($route.params.lev || ''))" :style="{color: gobans.filter(function(o){return o.id == $route.params.id})[0].hex || 'c9c9c9'}">
+        <a @click="op(getTarget(gobans.filter(function(o){return o.id == $route.params.id})[0].use_lev))" :style="{color: gobans.filter(function(o){return o.id == $route.params.id})[0].hex || 'c9c9c9'}">
             <img :src="'https://www.google.com/s2/favicons?domain=https://ethercalc.org/'" width="16" height="16"/>
             | {{gobans.filter(function(o){return o.id == $route.params.id})[0].t}} - {{name || $route.params.id + ($route.params.lev || '')}}
             <q-icon name = "edit"/>
@@ -49,6 +49,15 @@ export default {
     }
   },
   methods: {
+    getTarget: function (useLev) {
+      var ans
+      if (useLev) {
+        ans = 'https://ethercalc.org/' + this.$route.params.id + (this.$route.params.lev || '')
+      } else {
+        ans = 'https://ethercalc.org/' + this.$route.params.id
+      }
+      return ans
+    },
     getSrc: function () {
       if (this.$route.params.index === 'new') {
         return 'https://ethercalc.org/' + this.$route.params.id + this.$route.params.lev
@@ -70,7 +79,6 @@ export default {
     }
   },
   mounted () {
-    this.reload()
   }
 }
 </script>

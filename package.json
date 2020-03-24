@@ -1,6 +1,6 @@
 {
-  "name": "知識棋盤",
-  "version": "2.0.2",
+  "name": "goban",
+  "version": "2.0.4",
   "description": "A Quasar Framework app",
   "productName": "知識棋盤",
   "cordovaId": "tw.goban.app",

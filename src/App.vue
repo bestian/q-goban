@@ -83,7 +83,7 @@ export default {
       obj.text = obj.t || k
       obj.related = obj.related || [k]
       obj.tags = obj.tags || [k]
-      obj.use_lev = true
+      obj.use_lev = obj.use_lev || false
       console.log(obj)
       db.ref('gobans/' + k).set(obj)
       this.$router.push('/see/' + k + '/0/new')
@@ -102,10 +102,11 @@ export default {
     },
     getSrc: function () {
       if (this.$route.params.index === 'new') {
-        return 'https://ethercalc.org/' + this.$route.params.id + this.$route.params.lev
+        return 'https://ethercalc.org/' + this.$route.params.id + (this.$route.params.lev || '')
       } else {
-        if (this.data[this.$route.params.index]) {
-          return this.data[this.$route.params.index].url
+        if (!this.mydata[0]) { return undefined }
+        if (this.mydata[this.$route.params.index]) {
+          return decodeURIComponent(this.mydata[this.$route.params.index].url)
         }
       }
       return undefined

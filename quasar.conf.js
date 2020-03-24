@@ -1,124 +1,77 @@
 // Configuration for your app
-// https://quasar.dev/quasar-cli/quasar-conf-js
 
 module.exports = function (ctx) {
   return {
-    // app boot file (/src/boot)
-    // --> boot files are part of "main.js"
-    // https://quasar.dev/quasar-cli/cli-documentation/boot-files
-    boot: [
-      'i18n',
+    // app plugins (/src/plugins)
+    plugins: [
+      'axios',
       'firebase'
     ],
-
-    // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
     css: [
-      'app.scss'
+      'app.scss',
+      'app.styl'
     ],
-
-    // https://github.com/quasarframework/quasar/tree/dev/extras
     extras: [
-      // 'ionicons-v4',
-      // 'mdi-v4',
-      // 'fontawesome-v5',
-      // 'eva-icons',
-      // 'themify',
-      // 'line-awesome',
-      // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
-
-      'roboto-font', // optional, you are not bound to it
+      ctx.theme.mat ? 'roboto-font' : null,
       'material-icons' // optional, you are not bound to it
+      // 'ionicons',
+      // 'mdi',
+      // 'fontawesome'
     ],
-
-    // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
-    framework: {
-      iconSet: 'material-icons', // Quasar icon set
-      lang: 'en-us', // Quasar language pack
-
-      // Possible values for "all":
-      // * 'auto' - Auto-import needed Quasar components & directives
-      //            (slightly higher compile time; next to minimum bundle size; most convenient)
-      // * false  - Manually specify what to import
-      //            (fastest compile time; minimum bundle size; most tedious)
-      // * true   - Import everything from Quasar
-      //            (not treeshaking Quasar; biggest bundle size; convenient)
-      all: true,
-
-      components: [
-        'QBtn',
-        'QImg',
-        'QIcon',
-        'QVideo',
-        'QList',
-        'QItem',
-        'QItemSection',
-        'QItemLabel',
-        'QColor',
-        'QBtnDropdown',
-        'QChatMessage',
-        'QForm'
-      ],
-      directives: [],
-
-      // Quasar plugins
-      plugins: [
-        'LocalStorage',
-        'Loading'
-      ]
-    },
-
-    // https://quasar.dev/quasar-cli/cli-documentation/supporting-ie
     supportIE: false,
-
-    // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
       scopeHoisting: true,
-      vueRouterMode: 'hash', // available values: 'hash', 'history'
-      showProgress: true,
-      gzip: false,
-      analyze: false,
-      // Options below are automatically set depending on the env, set them if you want to override
-      // preloadChunks: false,
+      vueRouterMode: 'history',
+      // vueCompiler: true,
+      // gzip: true,
+      // analyze: true,
       // extractCSS: false,
-
-      // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
       extendWebpack (cfg) {
-        cfg.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /node_modules/,
-          options: {
-            formatter: require('eslint').CLIEngine.getFormatter('stylish')
-          }
-        })
       }
     },
-
-    // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
-      https: false,
-      port: 8080,
+      // https: true,
+      // port: 8080,
       open: true // opens browser window automatically
     },
-
-    // animations: 'all', // --- includes all animations
-    // https://quasar.dev/options/animations
-    animations: [],
-
-    // https://quasar.dev/quasar-cli/developing-ssr/configuring-ssr
-    ssr: {
-      pwa: false
+    // framework: 'all' --- includes everything; for dev only!
+    framework: {
+      components: [
+        'QLayout',
+        'QLayoutHeader',
+        'QLayoutDrawer',
+        'QPageContainer',
+        'QPage',
+        'QToolbar',
+        'QToolbarTitle',
+        'QBtn',
+        'QIcon',
+        'QList',
+        'QListHeader',
+        'QItem',
+        'QItemMain',
+        'QItemSide'
+      ],
+      directives: [
+        'Ripple'
+      ],
+      // Quasar plugins
+      plugins: [
+        'Notify'
+      ]
+      // iconSet: ctx.theme.mat ? 'material-icons' : 'ionicons'
+      // i18n: 'de' // Quasar language
     },
-
-    // https://quasar.dev/quasar-cli/developing-pwa/configuring-pwa
+    // animations: 'all' --- includes all animations
+    animations: [
+    ],
     pwa: {
-      workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
-      workboxOptions: {}, // only for GenerateSW
+      // workboxPluginMode: 'InjectManifest',
+      // workboxOptions: {},
       manifest: {
-        name: 'Goban',
-        short_name: 'Goban',
-        description: 'A Quasar Framework app',
+        // name: 'Quasar App',
+        // short_name: 'Quasar-PWA',
+        // description: 'Best PWA App in town!',
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',
@@ -152,23 +105,14 @@ module.exports = function (ctx) {
         ]
       }
     },
-
-    // Full list of options: https://quasar.dev/quasar-cli/developing-cordova-apps/configuring-cordova
     cordova: {
-      // noIosLegacyBuildFlag: true, // uncomment only if you know what you are doing
-      id: 'tw.goban.app'
+      // id: 'org.cordova.quasar.app'
     },
-
-
-    // Full list of options: https://quasar.dev/quasar-cli/developing-capacitor-apps/configuring-capacitor
-    capacitor: {
-      hideSplashscreen: true
-    },
-
-    // Full list of options: https://quasar.dev/quasar-cli/developing-electron-apps/configuring-electron
     electron: {
-      bundler: 'packager', // 'packager' or 'builder'
-
+      // bundler: 'builder', // or 'packager'
+      extendWebpack (cfg) {
+        // do something with Electron process Webpack cfg
+      },
       packager: {
         // https://github.com/electron-userland/electron-packager/blob/master/docs/api.md#options
 
@@ -178,22 +122,13 @@ module.exports = function (ctx) {
         // osxSign: '',
         // protocol: 'myapp://path',
 
-        // Windows only
+        // Window only
         // win32metadata: { ... }
       },
-
       builder: {
         // https://www.electron.build/configuration/configuration
 
-        appId: 'goban'
-      },
-
-      // More info: https://quasar.dev/quasar-cli/developing-electron-apps/node-integration
-      nodeIntegration: true,
-
-      extendWebpack (cfg) {
-        // do something with Electron main process Webpack cfg
-        // chainWebpack also available besides this extendWebpack
+        // appId: 'quasar-app'
       }
     }
   }
